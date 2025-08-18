@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/yondev.de/
+    - export DEPLOYPATH=/home/yondevco/yondev.de
     - /bin/cp -R images $DEPLOYPATH
