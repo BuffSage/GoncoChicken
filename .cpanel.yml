@@ -1,7 +1,5 @@
 ---
 deployment:
   tasks:
-    - export GIT_WORK_TREE=/home/yondevco/yondev.de
-    - export GIT_DIR=/home/yondevco/yondev.de/.git
-    - git reset --hard
-    - git pull origin main
+    - export DEPLOYPATH=/home/yondev.de/
+    - /bin/cp -R images $DEPLOYPATH
