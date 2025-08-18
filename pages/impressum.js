@@ -1,11 +1,12 @@
 function renderImpressum(){
-document.getElementById('app').innerHTML = `
-<h2>Impressum</h2>
+  const t = i18n[state.lang].impressum;
+  document.getElementById('app').innerHTML = `
+<h2>${t.title}</h2>
 <div class="card tile">
   Gonco Chicken – Moselweinstraße 14B, 56821 Ellenz-Poltersdorf
 </div>
 
-<h2>Datenschutzerklärung</h2>
+<h2>${t.dataTitle}</h2>
 <div class="card tile" style="white-space:pre-wrap">
 Wir freuen uns über Ihr Interesse an unserer Homepage und unserem Unternehmen. Für externe Links zu fremden Inhalten können wir dabei trotz sorgfältiger inhaltlicher Kontrolle keine Haftung übernehmen. Der Schutz Ihrer personenbezogenen Daten bei der Erhebung, Verarbeitung und Nutzung anlässlich Ihres Besuchs auf unserer Homepage ist uns ein wichtiges Anliegen. Ihre Daten werden im Rahmen der gesetzlichen Vorschriften geschützt. Nachfolgend finden Sie Informationen, welche Daten während Ihres Besuchs auf der Homepage erfasst und wie diese genutzt werden:
 
