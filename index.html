@@ -19,6 +19,123 @@
 <script src="pages/contact.js"></script>
 <script src="pages/impressum.js"></script>
 <script>
+const state = {
+  lang: localStorage.getItem('lang') || 'de',
+  theme: localStorage.getItem('theme') || 'dark'
+};
+
+const i18n = {
+  de: {
+    nav: { menu: 'Menü', about: 'Über uns', contact: 'Kontakt', call: 'Anrufen' },
+    footer: { allergens: 'Allergene & Zusatzstoffe bitte im Laden erfragen.', impressum: 'Impressum – Datenschutz' },
+    home: {
+      kicker: 'Ellenz-Poltersdorf • Mosel',
+      headline: 'Knuspriges Hähnchen, <br/>frisch & saftig – jeden Tag',
+      lead: 'Willkommen bei <strong>Gonco Chicken</strong>. Bei uns gibt’s gold-knuspriges Hähnchen, hausgemachte Saucen und Beilagen, die wirklich satt machen. Perfekt zum Mitnehmen oder zum Genießen vor Ort.',
+      btnMenu: 'Zum Menü',
+      btnAbout: 'Mehr über uns',
+      badgeHours: 'Täglich 11–21 Uhr',
+      badgeFresh: 'Frisch frittiert',
+      findUs: 'So findest du uns',
+      popup: 'Willkommen bei Gonco Chicken!'
+    },
+    menu: {
+      title: 'Menü',
+      items: [
+        { name: 'Classic Fried Chicken', desc: 'Knuspriges Hähnchen – 9,50 €' },
+        { name: 'Spicy Wings (8 Stk.)', desc: 'Feurig und knusprig – 8,90 €' },
+        { name: 'Chicken Burger', desc: 'Mit Salat & Sauce – 10,50 €' }
+      ]
+    },
+    about: {
+      title: 'Über uns',
+      lines: [
+        'Bei Gonco Chicken dreht sich alles um ehrliches Comfort Food.',
+        'Wir arbeiten mit regionalen Lieferanten zusammen.',
+        'Unsere Karte ist bewusst kompakt für beste Qualität.'
+      ]
+    },
+    contact: {
+      title: 'Kontakt',
+      info: 'Moselweinstraße 14B, 56821 Ellenz-Poltersdorf<br>Telefon: 02671 2411502<br>E-Mail: hello@goncochicken.de',
+      form: { name: 'Name', email: 'E-Mail', message: 'Nachricht', send: 'Senden' }
+    },
+    impressum: {
+      title: 'Impressum',
+      dataTitle: 'Datenschutzerklärung'
+    }
+  },
+  en: {
+    nav: { menu: 'Menu', about: 'About', contact: 'Contact', call: 'Call' },
+    footer: { allergens: 'Please ask in store for allergens & additives.', impressum: 'Imprint – Privacy' },
+    home: {
+      kicker: 'Ellenz-Poltersdorf • Mosel',
+      headline: 'Crispy chicken, <br/>fresh & juicy – every day',
+      lead: 'Welcome to <strong>Gonco Chicken</strong>. We serve golden crispy chicken, homemade sauces and sides that really fill you up. Perfect to take away or enjoy on site.',
+      btnMenu: 'View menu',
+      btnAbout: 'More about us',
+      badgeHours: 'Daily 11am–9pm',
+      badgeFresh: 'Freshly fried',
+      findUs: 'Find us',
+      popup: 'Welcome to Gonco Chicken!'
+    },
+    menu: {
+      title: 'Menu',
+      items: [
+        { name: 'Classic Fried Chicken', desc: 'Crispy chicken – €9.50' },
+        { name: 'Spicy Wings (8 pcs)', desc: 'Fiery and crispy – €8.90' },
+        { name: 'Chicken Burger', desc: 'With salad & sauce – €10.50' }
+      ]
+    },
+    about: {
+      title: 'About us',
+      lines: [
+        'At Gonco Chicken we focus on honest comfort food.',
+        'We work with local suppliers.',
+        'Our menu is intentionally compact for top quality.'
+      ]
+    },
+    contact: {
+      title: 'Contact',
+      info: 'Moselweinstraße 14B, 56821 Ellenz-Poltersdorf<br>Phone: +49 2671 2411502<br>Email: hello@goncochicken.de',
+      form: { name: 'Name', email: 'Email', message: 'Message', send: 'Send' }
+    },
+    impressum: {
+      title: 'Imprint',
+      dataTitle: 'Privacy Policy'
+    }
+  }
+};
+
+function applyTheme(){
+  document.body.classList.toggle('light', state.theme === 'light');
+  const btn = document.getElementById('theme-toggle');
+  if(btn) btn.textContent = state.theme === 'dark' ? '🌙' : '☀️';
+}
+
+function updateLang(){
+  document.documentElement.lang = state.lang;
+  const btn = document.getElementById('lang-toggle');
+  if(btn) btn.textContent = state.lang === 'de' ? 'EN' : 'DE';
+}
+
+function initToggles(){
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    state.theme = state.theme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', state.theme);
+    applyTheme();
+  });
+  document.getElementById('lang-toggle').addEventListener('click', () => {
+    state.lang = state.lang === 'de' ? 'en' : 'de';
+    localStorage.setItem('lang', state.lang);
+    renderHeader();
+    renderFooter();
+    updateLang();
+    initToggles();
+    router();
+  });
+}
+
 const routes = {
   '': renderHome,
   '#home': renderHome,
@@ -27,17 +144,24 @@ const routes = {
   '#contact': renderContact,
   '#impressum': renderImpressum
 };
+
 function router(){
   const hash = location.hash || '';
   document.getElementById('app').innerHTML = '';
   (routes[hash] || renderHome)();
 }
+
 window.addEventListener('hashchange', router);
 window.addEventListener('load', () => {
+  renderHeader();
+  renderFooter();
+  applyTheme();
+  updateLang();
+  initToggles();
   router();
   const popup = document.createElement('div');
   popup.className = 'popup';
-  popup.innerHTML = `<div class="popup-content"><p>Willkommen bei Gonco Chicken!</p><button class="btn close-popup">OK</button></div>`;
+  popup.innerHTML = `<div class="popup-content"><p>${i18n[state.lang].home.popup}</p><button class="btn close-popup">OK</button></div>`;
   document.body.appendChild(popup);
   setTimeout(() => popup.classList.add('show'), 500);
   popup.querySelector('.close-popup').addEventListener('click', () => popup.remove());
