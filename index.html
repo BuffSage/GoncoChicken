@@ -33,7 +33,15 @@ function router(){
   (routes[hash] || renderHome)();
 }
 window.addEventListener('hashchange', router);
-window.addEventListener('load', router);
+window.addEventListener('load', () => {
+  router();
+  const popup = document.createElement('div');
+  popup.className = 'popup';
+  popup.innerHTML = `<div class="popup-content"><p>Willkommen bei Gonco Chicken!</p><button class="btn close-popup">OK</button></div>`;
+  document.body.appendChild(popup);
+  setTimeout(() => popup.classList.add('show'), 500);
+  popup.querySelector('.close-popup').addEventListener('click', () => popup.remove());
+});
 </script>
 </body>
 </html>

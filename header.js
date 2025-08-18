@@ -2,6 +2,7 @@ document.getElementById('site-header').innerHTML = `
 <div class="container nav">
   <a class="brand" href="#home"><span class="logo"></span><span>Gonco Chicken</span></a>
   <nav class="navlinks">
+    <span class="open-hours desktop">Täglich 11–21 Uhr</span>
     <a class="btn" href="#menu">Menü</a>
     <a class="btn" href="#about">Über uns</a>
     <a class="btn" href="#contact">Kontakt</a>
