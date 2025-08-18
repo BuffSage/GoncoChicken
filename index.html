@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gonco Chicken – Knuspriges Hähnchen in Ellenz-Poltersdorf</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header id="site-header"></header>
+<main id="app" class="container"></main>
+<footer id="site-footer"></footer>
+
+<script src="header.js"></script>
+<script src="footer.js"></script>
+<script src="pages/home.js"></script>
+<script src="pages/menu.js"></script>
+<script src="pages/about.js"></script>
+<script src="pages/contact.js"></script>
+<script src="pages/impressum.js"></script>
+<script>
+const routes = {
+  '': renderHome,
+  '#home': renderHome,
+  '#menu': renderMenu,
+  '#about': renderAbout,
+  '#contact': renderContact,
+  '#impressum': renderImpressum
+};
+function router(){
+  const hash = location.hash || '';
+  document.getElementById('app').innerHTML = '';
+  (routes[hash] || renderHome)();
+}
+window.addEventListener('hashchange', router);
+window.addEventListener('load', router);
+</script>
+</body>
+</html>
