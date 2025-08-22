@@ -7,15 +7,16 @@
 <link rel="stylesheet" href="styles.css">
 <style>
 .consent-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:1000;}
+body.light .consent-overlay{background:rgba(0,0,0,.3);}
 .consent-overlay.hidden{display:none;}
-.consent-modal{background:#fff;color:#000;padding:1rem 1.5rem;border-radius:6px;max-width:500px;width:90%;max-height:90vh;overflow:auto;box-shadow:0 2px 8px rgba(0,0,0,.3);}
+.consent-modal{background:var(--card);color:var(--text);padding:1rem 1.5rem;border-radius:var(--radius);max-width:500px;width:90%;max-height:90vh;overflow:auto;box-shadow:var(--shadow);border:1px solid var(--border);}
 .consent-text{max-height:150px;overflow-y:auto;margin-bottom:1rem;}
 .consent-settings{margin-bottom:1rem;}
-.consent-settings label{display:block;margin-bottom:.5rem;}
+.consent-settings label{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;}
 .consent-buttons{display:flex;flex-direction:column;gap:.5rem;}
 @media(min-width:480px){.consent-buttons{flex-direction:row;}}
-.consent-buttons button{flex:1;padding:.5rem;cursor:pointer;}
-.consent-buttons button:focus{outline:2px solid #000;outline-offset:2px;}
+.consent-buttons .btn{flex:1;padding:.5rem;}
+.consent-buttons .btn:focus{outline:2px solid var(--text);outline-offset:2px;}
 footer .cookie-btn{margin-left:1rem;}
 </style>
 </head>
@@ -187,9 +188,9 @@ window.addEventListener('load', () => {
       <label><input type="checkbox" id="toggle-personalization"> Personalisierung</label>
     </div>
     <div class="consent-buttons">
-      <button id="btn-accept-all">AKTIVIEREN</button>
-      <button id="btn-necessary">NUR NOTWENDIGE TECHNOLOGIEN</button>
-      <button id="btn-customize">EINSTELLUNGEN ÄNDERN</button>
+      <button id="btn-accept-all" class="btn primary">AKTIVIEREN</button>
+      <button id="btn-necessary" class="btn">NUR NOTWENDIGE TECHNOLOGIEN</button>
+      <button id="btn-customize" class="btn">EINSTELLUNGEN ÄNDERN</button>
     </div>
   </div>
 </div>
